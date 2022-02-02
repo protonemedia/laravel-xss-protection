@@ -6,6 +6,7 @@ use Closure;
 use GrahamCampbell\SecurityCore\Security;
 use Illuminate\Foundation\Http\Middleware\TransformsRequest;
 use ProtoneMedia\LaravelXssProtection\Cleaners\BladeEchoes;
+use ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class XssCleanInput extends TransformsRequest
@@ -41,6 +42,13 @@ class XssCleanInput extends TransformsRequest
     ];
 
     /**
+     * Array of sanitized keys.
+     *
+     * @var array
+     */
+    protected $sanitizedKeys = [];
+
+    /**
      * Create a new instance.
      *
      * @param \GrahamCampbell\SecurityCore\Security $security
@@ -63,13 +71,29 @@ class XssCleanInput extends TransformsRequest
      */
     public function handle($request, Closure $next)
     {
+        $this->sanitizedKeys = [];
+
         foreach (static::$skipCallbacks as $callback) {
             if ($callback($request)) {
                 return $next($request);
             }
         }
 
-        return parent::handle($request, $next);
+        $this->clean($request);
+
+        if (count($this->sanitizedKeys) === 0) {
+            return $next($request);
+        }
+
+        if ($this->enabledInConfig('dispatch_event_on_malicious_input')) {
+            event(new MaliciousInputFound($this->sanitizedKeys, $request));
+        }
+
+        if ($this->enabledInConfig('terminate_request_on_malicious_input')) {
+            abort(403, 'Malicious input found.');
+        }
+
+        return $next($request);
     }
 
     /**
@@ -90,12 +114,18 @@ class XssCleanInput extends TransformsRequest
         }
 
         if ($value instanceof UploadedFile) {
-            return config('xss-protection.middleware.allow_file_uploads') ? $value : null;
+            if ($this->enabledInConfig('allow_file_uploads')) {
+                return $value;
+            }
+
+            $this->sanitizedKeys[] = $key;
+
+            return null;
         }
 
         $output = $this->security->clean((string) $value);
 
-        if (!config('xss-protection.middleware.allow_blade_echoes')) {
+        if (!$this->enabledInConfig('allow_blade_echoes')) {
             $output = $this->bladeEchoCleaner->clean((string) $output);
         }
 
@@ -103,15 +133,14 @@ class XssCleanInput extends TransformsRequest
             return $output;
         }
 
-        if (config('xss-protection.middleware.terminate_request_on_malicious_input')) {
-            abort(403, 'Malicious input found.');
-        }
+        $this->sanitizedKeys[] = $key;
 
-        if (config('xss-protection.middleware.completely_replace_malicious_input')) {
-            return null;
-        }
+        return $this->enabledInConfig('completely_replace_malicious_input') ? null : $output;
+    }
 
-        return $output;
+    private function enabledInConfig($key): bool
+    {
+        return config("xss-protection.middleware.{$key}");
     }
 
     /**

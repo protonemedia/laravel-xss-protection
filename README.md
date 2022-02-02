@@ -77,7 +77,11 @@ By default, the middleware transforms malicious input to `null`. You may configu
 
 ### Terminate request
 
-Instead of transforming malicious input, you may configure the middleware to terminate the request whenever anything malicious has been found. You may do this by setting the `middleware.terminate_request_on_malicious_input` to `true`, which will throw an HttpException with status code 403.
+Instead of transforming malicious input, you may configure the middleware to terminate the request whenever anything malicious has been found. You may do this by setting the `middleware.terminate_request_on_malicious_input` to `true`, which will throw an `HttpException` with status code 403.
+
+### Dispatch event
+
+You may configure the middleware to dispatch an event whenever malicious input has been found. Setting the `middleware.dispatch_event_on_malicious_input` to `true` will dispatch an `ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound` event with the malicious keys and full request.
 
 ## Changelog
 

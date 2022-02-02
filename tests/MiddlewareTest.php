@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Event;
+use ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound;
 use ProtoneMedia\LaravelXssProtection\Middleware\XssCleanInput;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -17,6 +19,24 @@ it('can partly replace the malicious input', function () {
     $middleware->handle($request, fn ($request) => $request);
 
     expect($request->input('key'))->toBe('test');
+});
+
+it('can dispatch an event with the transformed keys and request', function () {
+    $request = Request::createFromGlobals()->merge([
+        'key' => 'test<script>script</script>',
+    ]);
+
+    config(['xss-protection.middleware.dispatch_event_on_malicious_input' => true]);
+
+    Event::fake();
+
+    /** @var XssCleanInput $middleware */
+    $middleware = app(XssCleanInput::class);
+    $middleware->handle($request, fn ($request) => $request);
+
+    Event::assertDispatched(function (MaliciousInputFound $event) use ($request) {
+        return $event->request === $request && $event->keys === ['key'];
+    });
 });
 
 it('can add a callback to skip a request', function () {
