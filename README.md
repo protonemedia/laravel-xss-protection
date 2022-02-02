@@ -28,7 +28,7 @@ You may publish the config file with:
 php artisan vendor:publish --tag="laravel-xss-protection-config"
 ```
 
-## Usage
+## Middleware Usage
 
 You may use the `ProtoneMedia\LaravelXssProtection\Middleware\XssCleanInput` middleware in the route that handles the form submission.
 
@@ -49,6 +49,24 @@ protected $middleware = [
    \ProtoneMedia\LaravelXssProtection\Middleware\XssCleanInput::class,
 ];
 ```
+
+## Configuration
+
+### File uploads
+
+By default, the middleware allows file uploads. You may disallow file uploads by changing the `middleware.allow_file_uploads` configuration key to `false`.
+
+### Blade echo statements
+
+By default, the middleware sanatizes [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) like `{{ $name }}`, `{{{ $name }}}`, and `{!! $name !!}`. You may allow echo statements by changing the `middleware.allow_blade_echoes` configuration key to `true`.
+
+### Completely replace malicious input
+
+By default, the middleware transforms malicious input to `null`. You may configure the middleware to only transform the malicious part by setting the `middleware.completely_replace_malicious_input` configuration key to `false`. That way, an input string like `hey <script>alert('laravel')</script>` will be transformed to `hey` instead of `null`.
+
+### Terminate request
+
+Instead of transforming malicious input, you may configure the middleware to terminate the request whenever anything malicious has been found. You may do this by setting the `middleware.terminate_request_on_malicious_input` to `true`, which will throw an HttpException with status code 403.
 
 ## Changelog
 
