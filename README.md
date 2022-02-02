@@ -28,7 +28,7 @@ composer require protonemedia/laravel-xss-protection
 You may publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-xss-protection-config"
+php artisan vendor:publish --tag="xss-protection-config"
 ```
 
 ## Middleware Usage
