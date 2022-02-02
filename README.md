@@ -50,6 +50,14 @@ protected $middleware = [
 ];
 ```
 
+If you register the middleware globally, you may exclude requests by using the static `skipWhen` method. You can add a callback to interact with the request:
+
+```php
+XssCleanInput::skipWhen(function (Request $request) {
+    return $request->is('admin.*');
+});
+```
+
 ## Configuration
 
 ### File uploads
