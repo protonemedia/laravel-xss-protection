@@ -54,7 +54,7 @@ protected $middleware = [
 
 ### File uploads
 
-By default, the middleware allows file uploads. You may disallow file uploads by changing the `middleware.allow_file_uploads` configuration key to `false`.
+By default, the middleware allows file uploads. However, you may disallow file uploads by changing the `middleware.allow_file_uploads` configuration key to `false`.
 
 ### Blade echo statements
 
