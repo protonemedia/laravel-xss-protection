@@ -69,7 +69,7 @@ By default, the middleware allows file uploads. However, you may disallow file u
 
 ### Blade echo statements
 
-By default, the middleware sanatizes [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) like `{{ $name }}`, `{{{ $name }}}`, and `{!! $name !!}`. You may allow echo statements by changing the `middleware.allow_blade_echoes` configuration key to `true`.
+By default, the middleware sanitizes [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) like `{{ $name }}`, `{{{ $name }}}`, and `{!! $name !!}`. You may allow echo statements by changing the `middleware.allow_blade_echoes` configuration key to `true`.
 
 ### Completely replace malicious input
 
