@@ -79,6 +79,8 @@ class XssCleanInput extends TransformsRequest
             }
         }
 
+        $originalRequest = clone $request;
+
         $this->clean($request);
 
         if (count($this->sanitizedKeys) === 0) {
@@ -86,7 +88,7 @@ class XssCleanInput extends TransformsRequest
         }
 
         if ($this->enabledInConfig('dispatch_event_on_malicious_input')) {
-            event(new MaliciousInputFound($this->sanitizedKeys, $request));
+            event(new MaliciousInputFound($this->sanitizedKeys, $originalRequest, $request));
         }
 
         if ($this->enabledInConfig('terminate_request_on_malicious_input')) {

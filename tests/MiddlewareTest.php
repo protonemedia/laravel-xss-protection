@@ -35,7 +35,9 @@ it('can dispatch an event with the transformed keys and request', function () {
     $middleware->handle($request, fn ($request) => $request);
 
     Event::assertDispatched(function (MaliciousInputFound $event) use ($request) {
-        return $event->request === $request && $event->keys === ['key'];
+        return $event->sanitizedRequest === $request
+            && $event->originalRequest->input('key') === 'test<script>script</script>'
+            && $event->sanitizedKeys === ['key'];
     });
 });
 

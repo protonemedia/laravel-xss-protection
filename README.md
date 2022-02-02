@@ -81,7 +81,18 @@ Instead of transforming malicious input, you may configure the middleware to ter
 
 ### Dispatch event
 
-You may configure the middleware to dispatch an event whenever malicious input has been found. Setting the `middleware.dispatch_event_on_malicious_input` to `true` will dispatch an `ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound` event with the malicious keys and full request.
+You may configure the middleware to dispatch an event whenever malicious input has been found. Setting the `middleware.dispatch_event_on_malicious_input` to `true` will dispatch an `ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound` event with the sanitized keys, the original request and the sanitized request.
+
+```php
+use Illuminate\Support\Facades\Event;
+use ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound;
+
+Event::listen(function (MaliciousInputFound $event) {
+    $event->sanitizedKeys;
+    $event->originalRequest;
+    $event->sanitizedRequest;
+});
+```
 
 ## Changelog
 
