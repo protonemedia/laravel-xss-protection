@@ -1,0 +1,61 @@
+{
+    "name": "protonemedia/laravel-xss-protection",
+    "description": "Laravel XSS protection, middleware and sanitization",
+    "keywords": [
+        "protonemedia",
+        "laravel",
+        "laravel-xss-protection"
+    ],
+    "homepage": "https://github.com/protonemedia/laravel-xss-protection",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pascal Baljet",
+            "email": "pascal@protone.media",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0|^8.1",
+        "graham-campbell/security": "^9.1",
+        "illuminate/contracts": "^8.73|^9.0",
+        "spatie/laravel-package-tools": "^1.9.2"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^5.10",
+        "orchestra/testbench": "^6.22",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProtoneMedia\\LaravelXssProtection\\": "src",
+            "ProtoneMedia\\LaravelXssProtection\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ProtoneMedia\\LaravelXssProtection\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ProtoneMedia\\LaravelXssProtection\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
