@@ -142,7 +142,7 @@ class XssCleanInput extends TransformsRequest
 
     private function enabledInConfig($key): bool
     {
-        return config("xss-protection.middleware.{$key}");
+        return (bool) config("xss-protection.middleware.{$key}");
     }
 
     /**
