@@ -33,13 +33,18 @@ class XssCleanInput extends TransformsRequest
     protected static $skipCallbacks = [];
 
     /**
+     * All of the registered skip keys callbacks.
+     *
+     * @var array
+     */
+    protected static $skipKeyCallbacks = [];
+
+    /**
      * The attributes that should not be cleaned.
      *
      * @var array
      */
-    protected $exceptKeys = [
-        //
-    ];
+    protected $exceptKeys = [];
 
     /**
      * Array of sanitized keys.
@@ -47,6 +52,13 @@ class XssCleanInput extends TransformsRequest
      * @var array
      */
     protected $sanitizedKeys = [];
+
+    /**
+     * Original request.
+     *
+     * @var \Illuminate\Http\Request
+     */
+    protected $originalRequest;
 
     /**
      * Create a new instance.
@@ -79,7 +91,11 @@ class XssCleanInput extends TransformsRequest
             }
         }
 
-        $originalRequest = clone $request;
+        $dispatchEvent = $this->enabledInConfig('dispatch_event_on_malicious_input');
+
+        if (count(static::$skipKeyCallbacks) > 0 || $dispatchEvent) {
+            $this->originalRequest = clone $request;
+        }
 
         $this->clean($request);
 
@@ -87,8 +103,8 @@ class XssCleanInput extends TransformsRequest
             return $next($request);
         }
 
-        if ($this->enabledInConfig('dispatch_event_on_malicious_input')) {
-            event(new MaliciousInputFound($this->sanitizedKeys, $originalRequest, $request));
+        if ($dispatchEvent) {
+            event(new MaliciousInputFound($this->sanitizedKeys, $this->originalRequest, $request));
         }
 
         if ($this->enabledInConfig('terminate_request_on_malicious_input')) {
@@ -109,6 +125,12 @@ class XssCleanInput extends TransformsRequest
     {
         if (in_array($key, $this->exceptKeys, true)) {
             return $value;
+        }
+
+        foreach (static::$skipKeyCallbacks as $callback) {
+            if ($callback($key, $value, $this->originalRequest)) {
+                return $value;
+            }
         }
 
         if ($value === null || is_bool($value) || is_int($value) || is_float($value)) {
@@ -140,6 +162,12 @@ class XssCleanInput extends TransformsRequest
         return $this->enabledInConfig('completely_replace_malicious_input') ? null : $output;
     }
 
+    /**
+     * Returns a boolean whether an option has been enabled.
+     *
+     * @param string $key
+     * @return boolean
+     */
     private function enabledInConfig($key): bool
     {
         return (bool) config("xss-protection.middleware.{$key}");
@@ -154,5 +182,28 @@ class XssCleanInput extends TransformsRequest
     public static function skipWhen(Closure $callback)
     {
         static::$skipCallbacks[] = $callback;
+    }
+
+    /**
+     * Register a callback that instructs the middleware to be skipped.
+     *
+     * @param  \Closure  $callback
+     * @return void
+     */
+    public static function skipKeyWhen(Closure $callback)
+    {
+        static::$skipKeyCallbacks[] = $callback;
+    }
+
+    /**
+     * Clear static callback arrays.
+     *
+     * @return void
+     */
+    public static function clearCallbacks()
+    {
+        static::$skipCallbacks = [];
+
+        static::$skipKeyCallbacks = [];
     }
 }

@@ -61,6 +61,18 @@ XssCleanInput::skipWhen(function (Request $request) {
 });
 ```
 
+You can also exclude keys by using the static `skipKeyWhen` method. This also allows you to interact with the value and request.
+
+```php
+XssCleanInput::skipKeyWhen(function (string $key, $value, Request $request) {
+    return in_array($key, [
+        'current_password',
+        'password',
+        'password_confirmation',
+    ]);
+});
+```
+
 ## Configuration
 
 ### File uploads

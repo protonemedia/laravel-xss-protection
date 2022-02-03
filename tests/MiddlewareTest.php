@@ -7,6 +7,10 @@ use ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound;
 use ProtoneMedia\LaravelXssProtection\Middleware\XssCleanInput;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+beforeEach(function () {
+    XssCleanInput::clearCallbacks();
+});
+
 it('can partly replace the malicious input', function () {
     $request = Request::createFromGlobals()->merge([
         'key' => 'test<script>script</script>',
@@ -42,19 +46,14 @@ it('can dispatch an event with the transformed keys and request', function () {
 });
 
 it('can add a callback to skip a request', function () {
-    class SkipXssCleanInput extends XssCleanInput
-    {
-        protected static $skipCallbacks = [];
-    }
-
-    SkipXssCleanInput::skipWhen(fn () => true);
+    XssCleanInput::skipWhen(fn () => true);
 
     $request = Request::createFromGlobals()->merge([
         'key' => 'test<script>script</script>',
     ]);
 
-    /** @var SkipXssCleanInput $middleware */
-    $middleware = app(SkipXssCleanInput::class);
+    /** @var XssCleanInput $middleware */
+    $middleware = app(XssCleanInput::class);
     $middleware->handle($request, fn ($request) => $request);
 
     expect($request->input('key'))->toBe('test<script>script</script>');
@@ -188,4 +187,33 @@ it('can trim blade echoes', function () {
     expect($request->input('d'))->toBe('d');
     expect($request->input('e'))->toBe('e');
     expect($request->input('f'))->toBe('f');
+});
+
+it('can skip a key by a callback', function () {
+    XssCleanInput::skipKeyWhen(function (string $key, $value, $request) {
+        expect($request)->toBeInstanceOf(Request::class);
+        expect($value)->toBe('test<script>script</script>');
+
+        return in_array($key, ['allow', 'nested.allowed']);
+    });
+
+    $request = Request::createFromGlobals()->merge([
+        'key'   => 'test<script>script</script>',
+        'allow' => 'test<script>script</script>',
+
+        'nested' => [
+            'key'     => 'test<script>script</script>',
+            'allowed' => 'test<script>script</script>',
+        ],
+    ]);
+
+    /** @var XssCleanInput $middleware */
+    $middleware = app(XssCleanInput::class);
+    $middleware->handle($request, fn ($request) => $request);
+
+    expect($request->input('key'))->toBeNull();
+    expect($request->input('nested.key'))->toBeNull();
+
+    expect($request->input('allow'))->toBe('test<script>script</script>');
+    expect($request->input('nested.allowed'))->toBe('test<script>script</script>');
 });
