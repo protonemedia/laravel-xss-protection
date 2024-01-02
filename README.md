@@ -6,8 +6,8 @@
 
 Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [Laravel Security](https://github.com/GrahamCampbell/Laravel-Security) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well.
 
-* Support for PHP 8.0 and higher
-* Support for Laravel 9 and higher
+* PHP 8.1 and higher
+* Laravel 10
 
 ## Sponsor this package!
 
