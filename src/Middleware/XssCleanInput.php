@@ -12,20 +12,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class XssCleanInput extends TransformsRequest
 {
     /**
-     * The security instance.
-     *
-     * @var \GrahamCampbell\SecurityCore\Security
-     */
-    protected $security;
-
-    /**
-     * The Blade echo cleaner instance.
-     *
-     * @var \ProtoneMedia\LaravelXssProtection\Cleaners\BladeEchoes
-     */
-    protected $bladeEchoCleaner;
-
-    /**
      * All of the registered skip callbacks.
      *
      * @var array
@@ -63,22 +49,20 @@ class XssCleanInput extends TransformsRequest
     /**
      * Create a new instance.
      *
-     * @param \GrahamCampbell\SecurityCore\Security $security
-     * @param \ProtoneMedia\LaravelXssProtection\Cleaners\BladeEchoes $bladeEchoCleaner
      *
      * @return void
      */
-    public function __construct(Security $security, BladeEchoes $bladeEchoCleaner)
-    {
-        $this->security         = $security;
-        $this->bladeEchoCleaner = $bladeEchoCleaner;
+    public function __construct(
+        protected Security $security,
+        protected BladeEchoes $bladeEchoCleaner
+    ) {
+        //
     }
 
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -149,7 +133,7 @@ class XssCleanInput extends TransformsRequest
 
         $output = $this->security->clean((string) $value);
 
-        if (!$this->enabledInConfig('allow_blade_echoes')) {
+        if (! $this->enabledInConfig('allow_blade_echoes')) {
             $output = $this->bladeEchoCleaner->clean((string) $output);
         }
 
@@ -165,8 +149,7 @@ class XssCleanInput extends TransformsRequest
     /**
      * Returns a boolean whether an option has been enabled.
      *
-     * @param string $key
-     * @return boolean
+     * @param  string  $key
      */
     private function enabledInConfig($key): bool
     {
@@ -176,7 +159,6 @@ class XssCleanInput extends TransformsRequest
     /**
      * Register a callback that instructs the middleware to be skipped.
      *
-     * @param  \Closure  $callback
      * @return void
      */
     public static function skipWhen(Closure $callback)
@@ -187,7 +169,6 @@ class XssCleanInput extends TransformsRequest
     /**
      * Register a callback that instructs the middleware to be skipped.
      *
-     * @param  \Closure  $callback
      * @return void
      */
     public static function skipKeyWhen(Closure $callback)

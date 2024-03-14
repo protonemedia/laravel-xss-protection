@@ -10,7 +10,6 @@ class MaliciousInputFound
         public array $sanitizedKeys,
         public Request $originalRequest,
         public Request $sanitizedRequest
-    )
-    {
+    ) {
     }
 }
