@@ -6,8 +6,8 @@
 
 Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [Laravel Security](https://github.com/GrahamCampbell/Laravel-Security) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well.
 
-* PHP 8.1 and higher
-* Laravel 10
+* PHP 8.2 and higher
+* Laravel 10 and higher
 
 ## Sponsor this package!
 
@@ -108,6 +108,21 @@ Event::listen(function (MaliciousInputFound $event) {
 });
 ```
 
+### Additional configuration for `voku/anti-xss`
+
+As of version 1.6.0, you may provide additional configuration for the `voku/anti-xss` package. You may do this by filling the `middleware.anti_xss` key. This is similar to the [Laravel Security](https://github.com/GrahamCampbell/Laravel-Security) package, which this package used to rely on.
+
+```php
+'anti_xss' => [
+    'evil' => [
+        'attributes' => ['href'],
+        'tags' => ['video'],
+    ],
+
+    'replacement' => '*redacted*',
+]
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed recently.
@@ -124,17 +139,15 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Other Laravel packages
 
-* [`Laravel Analytics Event Tracking`](https://github.com/protonemedia/laravel-analytics-event-tracking): Laravel package to easily send events to Google Analytics.
 * [`Laravel Blade On Demand`](https://github.com/protonemedia/laravel-blade-on-demand): Laravel package to compile Blade templates in memory.
 * [`Laravel Cross Eloquent Search`](https://github.com/protonemedia/laravel-cross-eloquent-search): Laravel package to search through multiple Eloquent models.
 * [`Laravel Eloquent Scope as Select`](https://github.com/protonemedia/laravel-eloquent-scope-as-select): Stop duplicating your Eloquent query scopes and constraints in PHP. This package lets you re-use your query scopes and constraints by adding them as a subquery.
-* [`Laravel Eloquent Where Not`](https://github.com/protonemedia/laravel-eloquent-where-not): This Laravel package allows you to flip/invert an Eloquent scope, or really any query constraint.
-* [`Laravel FFMpeg`](https://github.com/protonemedia/laravel-ffmpeg): This package provides integration with FFmpeg for Laravel. The storage of the files is handled by Laravel's Filesystem.
-* [`Laravel Form Components`](https://github.com/protonemedia/laravel-form-components): Blade components to rapidly build forms with Tailwind CSS Custom Forms and Bootstrap 4. Supports validation, model binding, default values, translations, includes default vendor styling and fully customizable!
+* [`Laravel FFMpeg`](https://github.com/protonemedia/laravel-ffmpeg): This package provides an integration with FFmpeg for Laravel. The storage of the files is handled by Laravel's Filesystem.
+* [`Laravel MinIO Testing Tools`](https://github.com/protonemedia/laravel-minio-testing-tools): Run your tests against a MinIO S3 server.
 * [`Laravel Mixins`](https://github.com/protonemedia/laravel-mixins): A collection of Laravel goodies.
 * [`Laravel Paddle`](https://github.com/protonemedia/laravel-paddle): Paddle.com API integration for Laravel with support for webhooks/events.
+* [`Laravel Task Runner`](https://github.com/protonemedia/laravel-task-runner): Write Shell scripts like Blade Components and run them locally or on a remote server.
 * [`Laravel Verify New Email`](https://github.com/protonemedia/laravel-verify-new-email): This package adds support for verifying new email addresses: when a user updates its email address, it won't replace the old one until the new one is verified.
-* [`Laravel WebDAV`](https://github.com/protonemedia/laravel-webdav): WebDAV driver for Laravel's Filesystem.
 
 ## Security
 
