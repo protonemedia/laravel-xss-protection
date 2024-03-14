@@ -61,10 +61,10 @@ it('can add a callback to skip a request', function () {
 
 it('doesnt interfere with booleans, numbers and null values', function () {
     $request = Request::createFromGlobals()->merge([
-        'yes'  => true,
-        'no'   => false,
-        'one'  => 1,
-        'pi'   => 3.14,
+        'yes' => true,
+        'no' => false,
+        'one' => 1,
+        'pi' => 3.14,
         'null' => null,
     ]);
 
@@ -143,11 +143,11 @@ it('can skip a key', function () {
     }
 
     $request = Request::createFromGlobals()->merge([
-        'key'   => 'test<script>script</script>',
+        'key' => 'test<script>script</script>',
         'allow' => 'test<script>script</script>',
 
         'nested' => [
-            'key'     => 'test<script>script</script>',
+            'key' => 'test<script>script</script>',
             'allowed' => 'test<script>script</script>',
         ],
     ]);
@@ -166,12 +166,12 @@ it('can skip a key', function () {
 it('can trim blade echoes', function () {
     $request = Request::createFromGlobals()->merge([
         'key' => 'test',
-        'a'   => '{{ $test }}',
-        'b'   => '{!! $test !!}',
-        'c'   => '{{{ $test }}}',
-        'd'   => 'd{{ $test }}',
-        'e'   => 'e{!! $test !!}',
-        'f'   => 'f{{{ $test }}}',
+        'a' => '{{ $test }}',
+        'b' => '{!! $test !!}',
+        'c' => '{{{ $test }}}',
+        'd' => 'd{{ $test }}',
+        'e' => 'e{!! $test !!}',
+        'f' => 'f{{{ $test }}}',
     ]);
 
     config(['xss-protection.middleware.completely_replace_malicious_input' => false]);
@@ -198,11 +198,11 @@ it('can skip a key by a callback', function () {
     });
 
     $request = Request::createFromGlobals()->merge([
-        'key'   => 'test<script>script</script>',
+        'key' => 'test<script>script</script>',
         'allow' => 'test<script>script</script>',
 
         'nested' => [
-            'key'     => 'test<script>script</script>',
+            'key' => 'test<script>script</script>',
             'allowed' => 'test<script>script</script>',
         ],
     ]);

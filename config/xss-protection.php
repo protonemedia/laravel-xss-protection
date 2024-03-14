@@ -18,4 +18,15 @@ return [
 
         'dispatch_event_on_malicious_input' => false,
     ],
+
+    // Additional configuration for the underlying voku/anti-xss package
+    // See: https://github.com/GrahamCampbell/Laravel-Security/blob/11.1/config/security.php
+    'anti_xss' => [
+        'evil' => [
+            'attributes' => null,
+            'tags' => null,
+        ],
+
+        'replacement' => null,
+    ],
 ];
