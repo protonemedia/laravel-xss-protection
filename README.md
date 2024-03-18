@@ -4,7 +4,7 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/protonemedia/laravel-xss-protection/run-tests?label=tests)](https://github.com/protonemedia/laravel-xss-protection/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/protonemedia/laravel-xss-protection.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-xss-protection)
 
-Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [Laravel Security](https://github.com/GrahamCampbell/Laravel-Security) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well.
+Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [Security Core](https://github.com/GrahamCampbell/Security-Core) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well.
 
 * PHP 8.2 and higher
 * Laravel 10 and higher
@@ -12,12 +12,6 @@ Laravel Middleware to protect your app against Cross-site scripting (XSS). It sa
 ## Sponsor this package!
 
 ❤️ We proudly support the community by developing Laravel packages and giving them away for free. If this package saves you time or if you're relying on it professionally, please consider [sponsoring the maintenance and development](https://github.com/sponsors/pascalbaljet). Keeping track of issues and pull requests takes time, but we're happy to help!
-
-## Laravel Splade
-
-**Did you hear about Laravel Splade? 🤩**
-
-It's the *magic* of Inertia.js with the *simplicity* of Blade. [Splade](https://github.com/protonemedia/laravel-splade) provides a super easy way to build Single Page Applications using Blade templates. Besides that magic SPA-feeling, it comes with more than ten components to sparkle your app and make it interactive, all without ever leaving Blade.
 
 ## Installation
 
