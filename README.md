@@ -1,7 +1,7 @@
 # Laravel XSS Protection Middleware
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/protonemedia/laravel-xss-protection.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-xss-protection)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/protonemedia/laravel-xss-protection/run-tests?label=tests)](https://github.com/protonemedia/laravel-xss-protection/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![run-tests](https://github.com/protonemedia/laravel-xss-protection/actions/workflows/run-tests.yml/badge.svg)](https://github.com/protonemedia/laravel-xss-protection/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/protonemedia/laravel-xss-protection.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-xss-protection)
 
 Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [Security Core](https://github.com/GrahamCampbell/Security-Core) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well.
