@@ -3,11 +3,12 @@
 namespace ProtoneMedia\LaravelXssProtection\Middleware;
 
 use Closure;
-use GrahamCampbell\SecurityCore\Security;
 use Illuminate\Foundation\Http\Middleware\TransformsRequest;
 use ProtoneMedia\LaravelXssProtection\Cleaners\BladeEchoes;
 use ProtoneMedia\LaravelXssProtection\Events\MaliciousInputFound;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use voku\helper\AntiXSS;
+use voku\helper\UTF8;
 
 class XssCleanInput extends TransformsRequest
 {
@@ -53,7 +54,7 @@ class XssCleanInput extends TransformsRequest
      * @return void
      */
     public function __construct(
-        protected Security $security,
+        protected AntiXSS $antiXss,
         protected BladeEchoes $bladeEchoCleaner
     ) {
         //
@@ -131,7 +132,11 @@ class XssCleanInput extends TransformsRequest
             return null;
         }
 
-        $output = $this->security->clean((string) $value);
+        $output = $this->antiXss->xss_clean((string) $value);
+
+        if ($this->antiXss->isXssFound() === false) {
+            $output = $this->cleanInvisibleCharacters($output);
+        }
 
         if (! $this->enabledInConfig('allow_blade_echoes')) {
             $output = $this->bladeEchoCleaner->clean((string) $output);
@@ -186,5 +191,23 @@ class XssCleanInput extends TransformsRequest
         static::$skipCallbacks = [];
 
         static::$skipKeyCallbacks = [];
+    }
+
+    /**
+     * Clean invisible characters from the input.
+     *
+     * @param  string|array  $input
+     */
+    private function cleanInvisibleCharacters($input): string|array
+    {
+        if (is_array($input)) {
+            foreach ($input as $key => &$value) {
+                $value = $this->cleanInvisibleCharacters($value);
+            }
+
+            return $input;
+        }
+
+        return UTF8::remove_invisible_characters($input, true);
     }
 }

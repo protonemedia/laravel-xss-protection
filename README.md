@@ -4,7 +4,7 @@
 [![run-tests](https://github.com/protonemedia/laravel-xss-protection/actions/workflows/run-tests.yml/badge.svg)](https://github.com/protonemedia/laravel-xss-protection/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/protonemedia/laravel-xss-protection.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-xss-protection)
 
-Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [Security Core](https://github.com/GrahamCampbell/Security-Core) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well.
+Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [voku/anti-xss](https://github.com/voku/anti-xss) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well. This package was inspired by the [Security Core](https://github.com/GrahamCampbell/Security-Core) package.
 
 * PHP 8.2 and higher
 * Laravel 10 and higher
@@ -106,7 +106,7 @@ Event::listen(function (MaliciousInputFound $event) {
 
 ### Additional configuration for `voku/anti-xss`
 
-As of version 1.6.0, you may provide additional configuration for the `voku/anti-xss` package. You may do this by filling the `middleware.anti_xss` key. This is similar to the [Laravel Security](https://github.com/GrahamCampbell/Laravel-Security) package, which this package used to rely on.
+As of version 1.6.0, you may provide additional configuration for the `voku/anti-xss` package. You may do this by filling the `middleware.anti_xss` key.
 
 ```php
 'anti_xss' => [
