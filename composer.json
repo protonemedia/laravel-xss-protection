@@ -20,7 +20,10 @@
         "illuminate/contracts": "^10.0|^11.0|^12.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "voku/anti-xss": "~4.1.42",
-        "voku/portable-utf8": "^6.0.13"
+        "voku/portable-ascii": "~2.0.0"
+    },
+    "replace": {
+        "voku/portable-utf8": "6.0.99"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -33,8 +36,12 @@
     "autoload": {
         "psr-4": {
             "ProtoneMedia\\LaravelXssProtection\\": "src",
-            "ProtoneMedia\\LaravelXssProtection\\Database\\Factories\\": "database/factories"
-        }
+            "ProtoneMedia\\LaravelXssProtection\\Database\\Factories\\": "database/factories",
+            "voku\\helper\\": "vendor-lib/voku/helper"
+        },
+        "files": [
+            "vendor-lib/voku/bootstrap.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -58,6 +65,5 @@
             ]
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }
