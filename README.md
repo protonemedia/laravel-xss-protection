@@ -9,7 +9,7 @@ Laravel Middleware to protect your app against Cross-site scripting (XSS). It sa
 * PHP 8.2 and higher
 * Laravel 10 and higher
 
-## PHP 8.4 Compatibility
+## PHP 8.4+ Compatibility
 
 This package includes a vendored version of [voku/portable-utf8](https://github.com/voku/portable-utf8) in the `vendor-lib` directory. The upstream package hasn't released a PHP 8.4 compatible version yet (the fixes are merged but not tagged), so we bundle the fixed version to avoid deprecation warnings about implicitly nullable parameters.
 
