@@ -16,25 +16,32 @@
         }
     ],
     "require": {
-        "php": "^8.2|^8.3|^8.4",
-        "illuminate/contracts": "^10.0|^11.0|^12.0",
+        "php": "^8.2|^8.3|^8.4|^8.5",
+        "illuminate/contracts": "^10.48|^11.44|^12.40",
         "spatie/laravel-package-tools": "^1.9.2",
         "voku/anti-xss": "~4.1.42",
-        "voku/portable-utf8": "^6.0.13"
+        "voku/portable-ascii": "~2.0.0"
+    },
+    "replace": {
+        "voku/portable-utf8": "6.0.99"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
-        "nunomaduro/collision": "^7.0|^8.0",
-        "orchestra/testbench": "^8.0|^9.0|^10.0",
-        "pestphp/pest": "^2.0|^3.7",
-        "pestphp/pest-plugin-laravel": "^2.0|^3.1",
-        "phpunit/phpunit": "^10.4|^11.5.3"
+        "nunomaduro/collision": "^7.0|^8.5",
+        "orchestra/testbench": "^8.35|^9.14|^10.5",
+        "pestphp/pest": "^2.34|^3.7|^4.0",
+        "pestphp/pest-plugin-laravel": "^2.4|^3.1|^4.0",
+        "phpunit/phpunit": "^10.4|^11.5.3|^12.0"
     },
     "autoload": {
         "psr-4": {
             "ProtoneMedia\\LaravelXssProtection\\": "src",
-            "ProtoneMedia\\LaravelXssProtection\\Database\\Factories\\": "database/factories"
-        }
+            "ProtoneMedia\\LaravelXssProtection\\Database\\Factories\\": "database/factories",
+            "voku\\helper\\": "vendor-lib/voku/helper"
+        },
+        "files": [
+            "vendor-lib/voku/bootstrap.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -58,6 +65,5 @@
             ]
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }
