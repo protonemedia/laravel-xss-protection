@@ -45,6 +45,18 @@ class ServiceProvider extends PackageServiceProvider
                     }
                 }
 
+                $allowed = config('xss-protection.anti_xss.allowed');
+
+                if ($allowed !== null) {
+                    if (! empty($allowed['attributes'])) {
+                        $antiXss->removeEvilAttributes($allowed['attributes']);
+                    }
+
+                    if (! empty($allowed['tags'])) {
+                        $antiXss->removeEvilHtmlTags($allowed['tags']);
+                    }
+                }
+
                 return $antiXss;
             });
     }
