@@ -162,9 +162,3 @@ As of v1.6.0 you can pass extra config via `middleware.anti_xss`:
 - **Passwords & secrets:** avoid sanitizing password fields (use `skipKeyWhen`).
 - **Breaking input expectations:** changing replacement mode can change validation behavior (e.g., string becomes `null`).
 - **Blade echo sanitization:** sanitizing `{!! !!}` output can surprise developers; ensure docs and config defaults remain consistent.
-
-## Testing
-
-```bash
-composer test
-```
