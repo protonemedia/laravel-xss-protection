@@ -1,14 +1,8 @@
-{{--
-  Laravel Boost guidelines (repository core)
+{{-- Laravel XSS Protection Guidelines for AI Code Assistants --}}
+{{-- Source: https://github.com/protonemedia/laravel-xss-protection --}}
+{{-- License: MIT | (c) ProtoneMedia --}}
 
-  This file intentionally stays small: it links this repository to its package-specific Boost skill.
---}}
+## Laravel XSS Protection
 
-<section>
-    <h2>Repository development skill</h2>
-
-    <p>
-        When working on this repository, activate the <code>laravel-xss-protection-development</code> skill.
-        It contains package-specific conventions, testing notes, and common pitfalls.
-    </p>
-</section>
+- Provides middleware and helpers to reduce XSS risks in Laravel apps.
+- Always activate the `laravel-xss-protection-development` skill when making package-specific changes.
