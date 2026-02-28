@@ -1,6 +1,6 @@
 ---
 name: laravel-xss-protection-development
-description: Development guidance for protonemedia/laravel-xss-protection. Provides middleware and helpers to reduce XSS risks in Laravel apps.
+description: Development guidance for protonemedia/laravel-xss-protection (input sanitization middleware).
 license: MIT
 metadata:
   author: ProtoneMedia
@@ -9,18 +9,12 @@ metadata:
 
 # Laravel XSS Protection Development
 
-## Overview
-Use this skill when changing package code, docs, tests, or release tooling for protonemedia/laravel-xss-protection.
-
-## When to Activate
-- You are modifying code in this repository.
-- You are reviewing/triaging issues or PRs for this package.
-- You are preparing a release (version bump, tag, changelog).
+Use this skill when changing code/docs/tests in `protonemedia/laravel-xss-protection`.
 
 ## Workflow
-1. Skim the README / docs to confirm the public contract.
-2. Read references/laravel-xss-protection-guide.md for common patterns and pitfalls.
-3. Keep changes small, add/update tests when behavior changes, and avoid breaking API changes.
+1. Treat the README as the public contract for middleware behavior and configuration.
+2. Consult `references/laravel-xss-protection-guide.md` for config keys, skip hooks, and event behavior.
+3. Be conservative: changes here can affect security posture and user data.
 
-## References
+## Reference
 - references/laravel-xss-protection-guide.md

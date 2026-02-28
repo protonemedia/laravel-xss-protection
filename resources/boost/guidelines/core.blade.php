@@ -4,5 +4,7 @@
 
 ## Laravel XSS Protection
 
-- Provides middleware and helpers to reduce XSS risks in Laravel apps.
+- Middleware to sanitize request input (and optionally Blade echoes) to reduce XSS risk.
 - Always activate the `laravel-xss-protection-development` skill when making package-specific changes.
+- For middleware usage, skip rules, configuration, and events, consult:
+  - `resources/boost/skills/laravel-xss-protection-development/references/laravel-xss-protection-guide.md`
