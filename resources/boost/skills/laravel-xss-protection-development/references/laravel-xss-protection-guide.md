@@ -1,5 +1,7 @@
 # Laravel XSS Protection Reference
 
+Complete reference for `protonemedia/laravel-xss-protection.`. Full documentation: https://github.com/protonemedia/laravel-xss-protection#readme
+
 Complete reference for `protonemedia/laravel-xss-protection`.
 
 Primary docs: https://github.com/protonemedia/laravel-xss-protection#readme

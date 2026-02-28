@@ -4,7 +4,5 @@
 
 ## Laravel XSS Protection
 
-- This project uses **Laravel XSS Protection** (ProtoneMedia) in a Laravel application.
-- Activate the **`laravel-xss-protection-development`** skill when you are **integrating, configuring, or using** this package in app code (controllers, jobs, tests, config, routes, Blade, etc.).
-- Use the reference doc for the package’s public API and common recipes:
-  - `resources/boost/skills/laravel-xss-protection-development/references/laravel-xss-protection-guide.md`
+- `protonemedia/laravel-xss-protection.` helps you work with Laravel XSS Protection in Laravel.
+- Always activate the `laravel-xss-protection-development` skill when working with Laravel XSS Protection configuration, integration, or any code that relies on this package.
