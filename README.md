@@ -139,6 +139,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Other Laravel packages
 
+- [Inertia Modal](https://inertiaui.com/inertia-modal/docs/introduction): With Inertia Modal, you can easily open any route in a Modal or Slideover without having to change anything about your existing routes or controllers.
 * [`Inertia Table`](https://inertiaui.com/inertia-table?utm_source=github&utm_campaign=laravel-xss-protection): The Ultimate Table for Inertia.js with built-in Query Builder.
 * [`Laravel Blade On Demand`](https://github.com/protonemedia/laravel-blade-on-demand): Laravel package to compile Blade templates in memory.
 * [`Laravel Cross Eloquent Search`](https://github.com/protonemedia/laravel-cross-eloquent-search): Laravel package to search through multiple Eloquent models.
@@ -166,3 +167,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 ## Treeware
 
 This package is [Treeware](https://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/pascalbaljetmedia/laravel-analytics-event-tracking) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
+
