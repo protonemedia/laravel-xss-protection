@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.2|^8.3|^8.4|^8.5",
-        "illuminate/contracts": "^10.48|^11.44|^12.40",
+        "illuminate/contracts": "^10.48|^11.44|^12.40|^13.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "voku/anti-xss": "~4.1.42",
         "voku/portable-ascii": "~2.0.0"
@@ -28,7 +28,7 @@
     "require-dev": {
         "laravel/pint": "^1.14",
         "nunomaduro/collision": "^7.0|^8.5",
-        "orchestra/testbench": "^8.35|^9.14|^10.5",
+        "orchestra/testbench": "^8.35|^9.14|^10.5|^11.0",
         "pestphp/pest": "^2.34|^3.7|^4.0",
         "pestphp/pest-plugin-laravel": "^2.4|^3.1|^4.0",
         "phpunit/phpunit": "^10.4|^11.5.3|^12.0"
