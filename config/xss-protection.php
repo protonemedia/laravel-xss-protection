@@ -28,5 +28,10 @@ return [
         ],
 
         'replacement' => null,
+
+        'allowed' => [
+            'attributes' => null,
+            'tags' => null,
+        ],
     ],
 ];

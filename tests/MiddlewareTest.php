@@ -217,3 +217,17 @@ it('can skip a key by a callback', function () {
     expect($request->input('allow'))->toBe('test<script>script</script>');
     expect($request->input('nested.allowed'))->toBe('test<script>script</script>');
 });
+
+it('can allow inline style attributes via config', function () {
+    $request = Request::createFromGlobals()->merge([
+        'key' => '<div style="color: red">Hello</div>',
+    ]);
+
+    config(['xss-protection.anti_xss.allowed.attributes' => ['style']]);
+
+    /** @var XssCleanInput $middleware */
+    $middleware = app(XssCleanInput::class);
+    $middleware->handle($request, fn ($request) => $request);
+
+    expect($request->input('key'))->toBe('<div style="color: red">Hello</div>');
+});
