@@ -120,8 +120,15 @@ As of version 1.6.0, you may provide additional configuration for the `voku/anti
     ],
 
     'replacement' => '*redacted*',
+
+    'allowed' => [
+        'attributes' => ['style'],
+        'tags' => ['iframe'],
+    ],
 ]
 ```
+
+The `evil` key adds *additional* attributes and tags to the evil list. The `allowed` key does the opposite — it removes attributes and tags from the default evil list, allowing them through the sanitizer. For example, if you need to allow `style` attributes or `iframe` tags in your content, add them to the `allowed` arrays.
 
 ## Changelog
 
