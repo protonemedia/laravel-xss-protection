@@ -7,7 +7,7 @@
 Laravel Middleware to protect your app against Cross-site scripting (XSS). It sanitizes request input by utilising the [voku/anti-xss](https://github.com/voku/anti-xss) package, and it can sanatize [Blade echo statements](https://laravel.com/docs/8.x/blade#displaying-data) as well. This package was inspired by the [Security Core](https://github.com/GrahamCampbell/Security-Core) package.
 
 * PHP 8.2 and higher
-* Laravel 10 and higher
+* Laravel 12 and higher
 
 ## PHP 8.4+ Compatibility
 
