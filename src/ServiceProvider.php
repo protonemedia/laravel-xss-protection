@@ -2,6 +2,7 @@
 
 namespace ProtoneMedia\LaravelXssProtection;
 
+use Illuminate\Support\Arr;
 use ProtoneMedia\LaravelXssProtection\Middleware\XssCleanInput;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -37,7 +38,7 @@ class ServiceProvider extends PackageServiceProvider
                 $evil = config('xss-protection.anti_xss.evil');
 
                 if ($evil !== null) {
-                    if (isset($evil['attributes']) || isset($evil['tags'])) {
+                    if (Arr::hasAny($evil, ['attributes', 'tags'])) {
                         $antiXss->addEvilAttributes($evil['attributes'] ?? []);
                         $antiXss->addEvilHtmlTags($evil['tags'] ?? []);
                     } else {
