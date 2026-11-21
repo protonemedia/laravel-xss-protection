@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.2|^8.3|^8.4|^8.5|^8.6",
+        "php": "^8.3|^8.4|^8.5|^8.6",
         "illuminate/contracts": "^12.40|^13.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "voku/anti-xss": "~4.1.42",
